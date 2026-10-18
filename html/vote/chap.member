@@ -1,0 +1,91 @@
+#!/usr/bin/perl
+
+
+read(STDIN, $my_input, $ENV{CONTENT_LENGTH});
+
+#my_input = $ENV{QUERY_STRING};
+#print "$my_input";
+
+@fv_pairs = split /\&/ , $my_input;
+
+print "Content-type: text/plain\n\n";
+
+foreach $pair (@fv_pairs) {
+    if($pair=~m/([^=]+)=(.*)/) {
+       $field = $1;
+       $value = $2;
+       $value =~ s/\+/ /g;
+       $value =~ s/%([\dA-Fa-f]{2})/pack("C", hex($1))/eg;
+       $INFO{$field}=$value;
+    }
+}
+
+# No sex
+if( ! defined($INFO{'gender'})) {
+	print "\n";
+	print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+	print "Please select your gender\n";
+	print "\n";
+	print "CHAP Administrator\n";
+	exit 0;
+}
+$INFO{'email'} =~ tr/A-Z/a-z/;
+$INFO{'email'} =~ s/^ *(\S*) *$/$1/;
+$email = $INFO{'email'};
+$gender=$INFO{'gender'};
+$admindir="/home/chap";
+$admin="chap\@taiwan.bacia.org";
+$status=0;
+
+open(CHECK, "< $admindir" . "/db/member") or Error("check:open");
+while ( defined ($line = <CHECK>) ) {
+	if ($line =~ /$email/) {
+		$emailexist++;	
+	}
+}	
+close(CHECK) or Error("check:close");
+
+if ($emailexist) {
+	print "\n";
+	print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+	print "Our record indicates you're already a member.\n";
+	print "\n";
+	print "CHAP Administrator\n";
+	exit 0;
+}
+
+#now add member to the database
+open(MANY, ">> $admindir". "/db/member") or Error("database:open");
+print MANY << "EOF";
+$INFO{'email'}:$INFO{'firstname'}:$INFO{'lastname'}:$INFO{'gender'}:$INFO{'homephone'}:$INFO{'workphone'}:
+EOF
+close(MANY) or print "Registration failed. Please try again.";
+
+$email="$INFO{'email'}";
+open(SENDMAIL, "|/bin/mail $email -s 'CHAP Registration Confirmation' ")
+	or Error("mail:open"); 
+	
+print SENDMAIL << "EOF";
+
+Dear $INFO{'firstname'} $INFO{'lastname'},
+
+    You're a CHAP member now. Looking forward to see you in
+CHAP's future events. 
+
+CHAP Administrator
+
+EOF
+close(SENDMAIL) or Error("mail:close"); 
+
+print "\n";
+print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+print "    You're a CHAP member now. A confirmation email has been\n"; 
+print "sent to email address $INFO{'email'}.\n";
+print "\n\n\n";
+print "CHAP Administrator\n";
+
+sub Error {
+	print "Registration failed at $_[0],\n";
+	print "please report this to $admin\n";
+        exit 0;
+}

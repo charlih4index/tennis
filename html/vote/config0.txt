@@ -1,0 +1,22 @@
+***first***
+html_file: example.html
+output_file: examp_out.html
+log_file: examp_logfile.txt
+ip_file: examp_ip.txt
+already_voted_file: examp_voted.html
+vote_url: http://tennis.bacia.org/cgi-bin/vote.pl
+checkIP: true 
+checkCookie: true
+expiration: 200
+replace_form: true
+***second***
+html_file: test.html
+output_file: test_out.html
+log_file: test_logfile.txt
+ip_file: test_ip.txt
+already_voted_file: examp_voted.html
+vote_url: http://tennis.bacia.org/cgi-bin/vote.pl
+checkIP: true
+checkCookie: true
+expiration: 230
+replace_form: false

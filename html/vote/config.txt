@@ -1,0 +1,44 @@
+***first***
+html_file: vote1.htm
+output_file: vote1_out.htm
+log_file: vote1_logfile.txt
+ip_file: vote1_ip.txt
+already_voted_file: vote1_voted.htm
+vote_url: http://tennis.bacia.org/cgi-bin/vote.pl
+checkIP: false 
+checkCookie: false
+expiration: 200
+replace_form: fasle
+***second***
+html_file: vote2.htm
+output_file: vote2_out.htm
+log_file: vote2_logfile.txt
+ip_file: vote2_ip.txt
+already_voted_file: vote2_voted.htm
+vote_url: http://tennis.bacia.org/cgi-bin/vote.pl
+checkIP: false 
+checkCookie: false
+expiration: 200
+replace_form: fasle
+***third***
+html_file: vote3.htm
+output_file: vote3_out.htm
+log_file: vote3_logfile.txt
+ip_file: vote3_ip.txt
+already_voted_file: vote3_voted.htm
+vote_url: http://tennis.bacia.org/cgi-bin/vote.pl
+checkIP: false 
+checkCookie: false
+expiration: 200
+replace_form: fasle
+***fourth***
+html_file: vote4.htm
+output_file: vote4_out.htm
+log_file: vote4_logfile.txt
+ip_file: vote4_ip.txt
+already_voted_file: vote4_voted.htm
+vote_url: http://tennis.bacia.org/cgi-bin/vote.pl
+checkIP: false 
+checkCookie: false
+expiration: 200
+replace_form: fasle

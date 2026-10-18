@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+
+#use FileHandle;
+#STDOUT->autoflush;
+
+print "Content-type: text/plain\n\n";
+
+$banner1="Email:First Name:Last Name:Gender:Home Phone:Work Phone:\n";
+$banner2="--------------------------------------------------------\n";
+
+printf $banner1;
+printf $banner2;
+
+
+$admin_email="irene\@chap.bacia.org";
+$event_name="White Water Rafting";
+$dbdir="/home/irene/";
+$registerfile=$dbdir . "rafting";
+$waitingfile="$registerfile" . ".waiting";
+$maxmale=12;
+$maxfemale=12;
+$malecount=0;
+$femalecount=0;
+$totalcount=0;
+
+system("touch $registerfile");
+system("touch $waitingfile");
+
+open(CHECK, "< $registerfile")  or Error("check:open");
+while ( defined ($line = <CHECK>) ) {
+	print "$line";
+	if ($line =~ /:male:/) {
+		$malecount++;	
+		$totalcount++;
+	}
+	else {
+		$femalecount++;	
+		$totalcount++;
+	} 
+}	
+print "\n";
+close(CHECK) or Error("check:close"); 
+
+print "\nRegistered: male=$malecount, female=$femalecount, total=$totalcount\n\n";
+
+# reset counter for waiting list
+$malecount=0;
+$femalecount=0;
+$totalcount=0;
+
+
+open(CHECK, "< $waitingfile") or Error("waiting:open");
+while ( defined ($line = <CHECK>) ) {
+	print "$line";
+	if ($line =~ /:male:/) {
+		$malecount++;	
+		$totalcount++;
+	}
+	else {
+		$femalecount++;	
+		$totalcount++;
+	} 
+}	
+close(CHECK) or print "Registration failed. Please try again.";
+
+print "\nWaiting: male=$malecount, female=$femalecount, total=$totalcount\n";
+
+sub Error {
+        print "Registration failed at $_[0],\n";
+        print "please report this to $admin_email\n";
+        exit 0;
+}
+
