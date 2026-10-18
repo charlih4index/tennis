@@ -1,0 +1,132 @@
+#!/usr/bin/perl
+
+#my_input = $ENV{QUERY_STRING};
+
+read(STDIN, $my_input, $ENV{CONTENT_LENGTH});
+
+#print "Content/type: text/plain\n\n$ENV{QUERY_STRING}";
+#print "$my_input";
+
+$admin_email="irene\@chap.bacia.org";
+$event_name="White Water Rafting";
+$dbdir="/home/irene/";
+$registerfile=$dbdir . "rafting";
+$waitingfile="$registerfile" . ".waiting";
+$maxmale=100;
+$maxfemale=100;
+$malecount=0;
+$maxtotal=24;
+
+$femalecount=0;
+$totalcount=0;
+
+system("touch $registerfile");
+system("touch $waitingfile");
+
+@fv_pairs = split /\&/ , $my_input;
+
+print "Content-type: text/plain\n\n";
+
+foreach $pair (@fv_pairs) {
+    if($pair=~m/([^=]+)=(.*)/) {
+       $field = $1;
+       $value = $2;
+       $value =~ s/\+/ /g;
+       $value =~ s/%([\dA-Fa-f]{2})/pack("C", hex($1))/eg;
+       $INFO{$field}=$value;
+    }
+}
+
+# No sex
+if( ! defined($INFO{'gender'})) {
+	print "\n";
+	print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+	print "Please select your gender\n";
+	print "\n";
+	print "$event_name Administrator\n";
+	exit 0;
+}
+$INFO{'email'} =~ tr/A-Z/a-z/;
+$INFO{'email'} =~ s/^ *(\S*) *$/$1/;
+$gender=$INFO{'gender'};
+
+open(CHECK, "< $registerfile") or Error("check:open");
+while ( defined ($line = <CHECK>) ) {
+	if ($line =~ /:male:/) {
+		$malecount++;	
+	}
+	else {
+		$femalecount++;	
+	} 
+	$totalcount++;
+}	
+close(CHECK) or Error("check:close"); 
+
+#print "male=$malecount, female=$femalecount, total=$totalcount\n";
+#print "total=$totalcount maxtotal=$maxtotal";
+
+if ($malecount>=$maxmale) {
+	$sex="male";
+}
+if ($femalecount>=$maxfemale) {
+	$sex="female";
+}
+
+if ($totalcount>=$maxtotal) {
+	$sex="male and female";
+}
+
+if (($gender=~/^male/ && $malecount>=$maxmale) || ($gender=~/^female/ &&$femalecount>=$maxfemale) || ($totalcount>=$maxtotal) ) {
+	$exceed = 1;
+}
+
+if ($exceed) {
+	print "\n";
+	print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+	print "The $sex participants for this event have reached the max\n";
+	print "capacity. Registration is closed for the $sex participant.\n";
+	print "Please register on our event earlier next time.\n";
+	print "\n";
+	print "$event_name Administrator\n";
+open(MANY, ">> $waitingfile") or Error("waiting:open");
+print MANY << "EOF";
+$INFO{'email'}:$INFO{'firstname'}:$INFO{'lastname'}:$INFO{'gender'}:$INFO{'homephone'}:$INFO{'workphone'}:
+EOF
+	exit 0;
+close(MANY) or Error("waiting:close"); 
+}
+
+open(MANY, ">> $registerfile") or Error("db:open");
+print MANY << "EOF";
+$INFO{'email'}:$INFO{'firstname'}:$INFO{'lastname'}:$INFO{'gender'}:$INFO{'homephone'}:$INFO{'workphone'}:
+EOF
+close(MANY) or Error("db:close"); 
+
+$email="$INFO{'email'}";
+open(SENDMAIL, "|/bin/mail $email -s '$event_name Confirmation' ")
+	or Error("email:open"); 
+	
+print SENDMAIL << "EOF";
+
+Dear $INFO{'firstname'} $INFO{'lastname'},
+
+    You have registered on our $event_name event. If you 
+have any question, please send email to $admin_email 
+
+$event_name Administrator
+
+EOF
+close(SENDMAIL) or Error("email:close"); 
+
+print "\n";
+print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+print "    Welcome to join the $event_name event. A confirmation email has been\n"; 
+print "sent to email address $INFO{'email'}.";
+print "\n\n\n";
+print "$event_name Administrator\n";
+
+sub Error {
+        print "Registration failed at $_[0],\n";
+        print "please report this to $admin_email\n";
+        exit 0;
+}

@@ -1,0 +1,13 @@
+#!/bin/csh
+
+echo "Content-type: text/html\n\n";
+set eventdir = /home/chap/html/events
+#set urldir = "http://www.bacia.org/events"
+set urldir = "http://chap.bacia.org/events"
+cd $eventdir
+echo "<html>"
+foreach file (`ls -r`)
+	echo "<a href=$urldir/$file>$file</a><br>\n"
+end
+echo "</html>"
+exit 0

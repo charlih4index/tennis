@@ -1,0 +1,123 @@
+#!/usr/bin/perl
+
+use DB_File;
+use GDBM_File;
+
+$event="potluck";
+$db="/home/chap/$event.db";
+$wdb="/home/chap/$event.wait.db";
+$aemail = "yauting\@hotmail.com";
+$aphone = "408-725-8071";
+$date = "Saturday 5/15";
+
+read(STDIN, $my_input, $ENV{CONTENT_LENGTH});
+
+@fv_pairs = split /\&/ , $my_input;
+
+foreach $pair (@fv_pairs) {
+    if($pair=~m/([^=]+)=(.*)/) {
+       my($field) = $1;
+       $value = $2;
+       $value =~ s/\+/ /g;
+       $value =~ s/%([\dA-Fa-f]{2})/pack("C", hex($1))/eg;
+       $INFO{$field}=$value;
+    }
+}
+
+print "Content-type: text/plain\n\n";
+
+# No sex
+if( ! defined($INFO{'gender'})) {
+	print "\n";
+	print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+	print "Please select your gender\n";
+	print "\n";
+	print "Potluck Administrator\n";
+	exit 0;
+}
+$email = $INFO{'email'};
+$email =~ tr/A-Z/a-z/;
+$email =~ s/^ *(\S*) *$/$1/;
+$gender=$INFO{'gender'};
+$value="$email:$INFO{'firstname'}:$INFO{'lastname'}:$INFO{'gender'}:$INFO{'homephone'}:$INFO{'workphone'}:$INFO{'dish'}:";
+
+if (!CheckKey($db, $email)) {
+  error("$email exist");
+}
+
+if ($malecount>=20) { $sex="male"; }
+else { $sex="female"; }
+
+if (($gender=~/^male/ && $malecount>=20) || ($gender=~/^female/ &&$femalecount>=20)) {
+	print "\n";
+	print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+	print "The $sex participants for this event have reached the max\n";
+	print "capacity. This event is closed for the $sex participant.\n";
+	print "Please register on our event earlier next time.\n";
+	print "\n";
+	print "Potluck Administrator\n";
+	AddKey($wdb, $email, $value);
+	exit 0;
+}
+
+AddKey($db,$email,$value);
+
+open(SENDMAIL, "|/bin/mail $email -s 'Potluck Confirmation' ")
+	or print "can't fork for mail: $!=\n";
+	
+print SENDMAIL << "EOF";
+
+Dear $INFO{'firstname'} $INFO{'lastname'},
+
+    You have registered on our $date potluck event. If you 
+have any question, please send email to $aemail 
+or call $aphone.
+
+Potluck Administrator
+
+EOF
+close(SENDMAIL) or print "Registration failed. Please try again.";
+
+print "\n";
+print "Dear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+print "    Welcome to join the potluck event. A confirmation email has been\n"; 
+print "sent to email address $email.";
+print "\n\n\n";
+print "Potluck Administrator\n";
+
+sub error {
+  print "\nDear $INFO{'firstname'} $INFO{'lastname'},\n\n";
+  print "    Your registration have failed due to \"$_[0]\"\n";
+  print "Please send email to $aemail or call $aphone\n";
+  print "\n";
+  print "Potluck Administrator\n";
+  exit 0;
+}
+
+sub AddKey {
+  dbmopen %HASH, $_[0], 0666 or error("AddKey");
+  $HASH{$_[1]} = $_[2];
+  dbmclose %HASH;
+  return 0; 
+}
+
+sub CheckKey {
+  dbmopen %HASH, $_[0], 0666 or error("CheckKey");
+  my($rval) = 0;
+  while( my($k,$v) = each %HASH ) {
+    if ("$v" == $_[1]) { $rval=1; }
+    if ($v =~ /:male:/) { $malecount++; $totalcount++;}
+    else { $femalecount++; $totalcount++;}
+  }
+  dbmclose %HASH;
+  return $rval;
+}
+
+sub DumpKey {
+  dbmopen %HASH, $_[0], 0666 or error("DumpKey");
+  while( my($k,$v) = each %HASH ) {
+    print "$v";
+  }
+  dbmclose %HASH;
+  return 0;
+}

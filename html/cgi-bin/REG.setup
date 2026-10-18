@@ -1,0 +1,8 @@
+$results_database = "./results.data";
+
+$title = "Registration";
+
+$url_of_this_script = "REG.main.cgi";
+
+$lock_file = "REG.lock";
+$location_of_cgi_sol = "./cgi-lib.sol";
