@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Microsoft FrontPage 5.0">
+   <META NAME="Author" CONTENT="Charlih Chen">
+   <META NAME="Description" CONTENT="Tennis Team Web Log">
+   <META NAME="KeyWords" CONTENT="Tennis Team Web Log">
+   <TITLE>Tennis Team Web Log</TITLE>
+</HEAD>
+<BODY>
+
+<H1>
+<A HREF="http://tennis.bacia.org/" Target="_Top">Tennis Team</A> Web Log
+<HR ALIGN=LEFT WIDTH="100%"><SCRIPT language="JavaScript">
+  var enabled = 0; today = new Date();
+  var day; var date;
+  if(today.getDay()==0) day = "Sunday"
+  if(today.getDay()==1) day = "Monday"
+  if(today.getDay()==2) day = "Tuesday"
+  if(today.getDay()==3) day = "Wednesday"
+  if(today.getDay()==4) day = "Thursday"
+  if(today.getDay()==5) day = "Friday"
+  if(today.getDay()==6) day = "Saturday"
+  document.fgColor = "000000";
+  date = " Today is " + (today.getMonth() + 1 ) + ' / ' + today.getDate() + ' / ' + (today.getYear())
+  + " " + day;
+  document.write("<center><TABLE BORDER=0><TH><FONT COLOR=red>")
+  document.write("<center>" + date.fontsize(3) +
+  "</CENTER>");
+  document.write("</FONT></TH></TABLE></center><P>")
+  </SCRIPT>
+</H1>
+
+<CENTER><TABLE BORDER WIDTH="75%" BGCOLOR="#F2F2F2" >
+<TR BGCOLOR="#FFD700">
+<TD>Date</TD>
+
+<TD ALIGN=CENTER>Log</TD>
+</TR>
+
+<tr>
+<TD>05/29/2004</TD>
+
+<TD>Modify tennis web site to fit with tennis.indexbox.com</TD>
+</tr>
+<tr>
+<TD>05/28/2004</TD>
+
+<TD>Create tennis <a href="forum">forum</a> by phpbb</TD>
+</tr>
+
+<TR>
+<TD>09/29/1999</TD>
+
+<TD><A HREF="http://tennis.bacia.org/gif/tennislogo.gif">Tennis Logo</A>
+by <A HREF="mailto:sherrychee@hotmail.com">Sherry Chee</A></TD>
+</TR>
+
+<TR>
+<TD>08/17/1999</TD>
+
+<TD><A HREF="http://tennis.bacia.org/tennisvote.htm">Vote</A> created (Happy
+<A HREF="http://www.jps.net/funnyguy/kiss.txt">Chinese
+Valentine's Day</A>)&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>08/16/1999</TD>
+
+<TD>put all gif/jpg files in gif folder</TD>
+</TR>
+
+<TR>
+<TD>08/04/1999</TD>
+
+<TD><A HREF="http://tennis.bacia.org/photo.htm">Photo Album</A> created
+by Andy Tsui</TD>
+</TR>
+
+<TR>
+<TD>07/21/1999</TD>
+
+<TD><A HREF="http://tennis.bacia.org/wwwboard/wwwboard.htm">Web Board</A>
+/ <A HREF="http://tennis.bacia.org/weblog.htm">Web Log</A> created</TD>
+</TR>
+
+<TR>
+<TD>07/20/1999</TD>
+
+<TD><A HREF="http://tennis.bacia.org" Traget="_Top">http://tennis.bacia.org</A>
+created</TD>
+</TR>
+</TABLE></CENTER>
+Web structure:
+<BR>===========
+<BR>Entry point -> <A HREF="http://tennis.bacia.org/index.html">index.html</A>
+:
+<BR>[Tennis Court]
+<BR><A HREF="http://tennis.bacia.org/tc.htm">tc.htm</A>(top court) + <A HREF="http://tennis.bacia.org/bc.htm">bc.htm</A>(bottom
+court) +
+<BR>LEFT side : <A HREF="http://tennis.bacia.org/lce.htm">lce.htm</A>(left
+court end) + <A HREF="http://tennis.bacia.org/lct.htm">lct.htm</A>(left
+court top) + <A HREF="http://tennis.bacia.org/lcb.htm">lcb.htm</A>(left
+court bottom)
+<BR>RIGHT side : <A HREF="http://tennis.bacia.org/rce.htm">rce.htm</A>(right
+court end) + <A HREF="http://tennis.bacia.org/rct.htm">rct.htm</A>(right
+court top) + <A HREF="http://tennis.bacia.org/lcb.htm">rcb.htm</A>(right
+court bottom)
+<BR>[Main]
+<BR>main.htm
+<BR>=================================
+<BR>PS. add <FONT COLOR="#FF6666">Target=main</FONT> for each URL tag
+<BR>__. add <FONT COLOR="#FF6666">Target=_Top</FONT> for each URL tag:
+to prevent GO HOME looping in frame.
+<BR>=================================
+<BR><B><FONT COLOR="#00CC00">Content of index.html</FONT></B>
+<BR>=================
+<BR>&lt;HTML>
+<BR>&lt;HEAD>
+<BR>&nbsp;&nbsp; &lt;TITLE>TennisTeam Assoication&lt;/TITLE>
+<BR>&nbsp;&nbsp; &lt;META NAME="GENERATOR" CONTENT="Mozilla/3.0b6Gold (Win95;
+I) [Netscape]">
+<BR>&nbsp;&nbsp; &lt;META HTTP-EQUIV="Content-Type" CONTENT="text/html;
+charset=iso-8859-1">
+<BR>&nbsp;&nbsp; &lt;META NAME="Author" CONTENT="Charlih Chen">
+<BR>&nbsp;&nbsp; &lt;META NAME="Description" CONTENT="TennisTeam @ USA
+- San Jose, July 20, 1999">
+<BR>&nbsp;&nbsp; &lt;META NAME="KeyWords" CONTENT="Tennis, TennisTeam,
+Taiwanese, Cupertino">
+<BR>&lt;/HEAD>
+<BR>&lt;FRAMESET ROWS="25,75,25,*">
+<P>&lt;NOFRAMES>
+<BR>&lt;HEAD>&lt;/HEAD>
+<BR>&lt;BODY BGCOLOR="#FFFFF0">
+<BR>&lt;CENTER>Your browser does not suport frames.&nbsp; This live example
+will not work.&nbsp; Return to &lt;A HREF="frames.htm">Frame Tags page&lt;/A>
+or the &lt;A HREF="index.htm">HTML Examples Title page&lt;/A>.&lt;/CENTER>
+<BR>&lt;/BODY>
+<BR>&lt;/NOFRAMES>
+<P>&lt;FRAME NORESIZE BORDERCOLOR="White" MARGINWIDTH="1" MARGINHEIGHT="1"
+NAME="topcourt" SRC="tc.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; &lt;FRAMESET BORDERCOLOR="White" COLS="25%,25%,25%,25%">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;FRAME NORESIZE
+MARGINWIDTH="1" MARGINHEIGHT="1" NAME="leftcourtend" SRC="lce.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;FRAMESET
+ROWS="23,23">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;FRAME NORESIZE MARGINWIDTH="1" MARGINHEIGHT="1" NAME="leftcourttop"
+SRC="lct.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;FRAME NORESIZE MARGINWIDTH="1" MARGINHEIGHT="1" NAME="leftcourtbottom"
+SRC="lcb.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/FRAMESET>
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;FRAMESET
+ROWS="23,23">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;FRAME NORESIZE MARGINWIDTH="1" MARGINHEIGHT="1" NAME="rightcourttop"
+SRC="rct.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;FRAME NORESIZE MARGINWIDTH="1" MARGINHEIGHT="1" NAME="rightcourtbottom"
+SRC="rcb.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/FRAMESET>
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;FRAME NORESIZE
+MARGINWIDTH="1" MARGINHEIGHT="1" NAME="rightcourtend" SRC="rce.htm" SCROLLING="no">
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; &lt;/FRAMESET>
+<BR>&lt;FRAME BORDERCOLOR="White" NORESIZE MARGINWIDTH="1" MARGINHEIGHT="1"
+NAME="bottomcourt" SRC="bc.htm" SCROLLING="no">
+<P>&lt;FRAME SCROLLING=YES MARGINWIDTH="35" MARGINHEIGHT="1" NAME="main"
+SRC="main.htm">
+<BR>&lt;/FRAMESET>
+<P>&lt;/HTML>
+<BR>
+<HR>
+<ADDRESS>
+<A HREF="http://tennis.bacia.org/" Target="_Top">tennis.bacia.org</A></ADDRESS>
+
+<BR><FONT SIZE=-1>Created by <A HREF="http://charlih.fsn.net/">Charlih
+Chen</A> on July 21, 1999</FONT>
+<ADDRESS>
+<FONT SIZE=-1>Updated by <A HREF="http://charlih.fsn.net/">Charlih Chen</A>
+on September 29, 1999</FONT></ADDRESS>
+
+</BODY>
+</HTML>
