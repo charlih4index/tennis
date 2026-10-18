@@ -1,0 +1,8 @@
+AuthUserFile /home/tennis/html/committee
+AuthGroupFile /dev/null
+AuthName "Apache Protected Directory Example"
+AuthType Basic
+
+<LIMIT GET POST PUT>
+require valid-user
+</LIMIT>
