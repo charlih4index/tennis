@@ -23,7 +23,7 @@
   if(today.getDay()==5) day = "Friday"
   if(today.getDay()==6) day = "Saturday"
   document.fgColor = "000000";
-  date = "Today is " + (today.getMonth() + 1 ) + '/' + today.getDate() + '/' + (today.getYear()) + ' ' + day;
+  date = "Today is " + (today.getMonth() + 1 ) + '/' + today.getDate() + '/' + (today.getFullYear()) + ' ' + day;
   document.write("<TABLE BORDER=0><TH><FONT COLOR=yellow>")
   document.write("<center>" + date.fontsize(1) + "</CENTER>");
   document.write("</FONT></TH></TABLE>")
